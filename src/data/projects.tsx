@@ -96,6 +96,24 @@ const PROJECT_SKILLS = {
     fg: "white",
     icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", "TypeScript"),
   },
+  react: {
+    title: "React",
+    bg: "black",
+    fg: "white",
+    icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", "React"),
+  },
+  nextjs: {
+    title: "Next.js",
+    bg: "black",
+    fg: "white",
+    icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", "Next.js"),
+  },
+  tailwind: {
+    title: "Tailwind CSS",
+    bg: "black",
+    fg: "white",
+    icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", "Tailwind CSS"),
+  },
   js: {
     title: "JavaScript",
     bg: "black",
@@ -307,6 +325,48 @@ const projects: Project[] = [
             `${BASE_PATH}/messenger/5.png`,
             `${BASE_PATH}/messenger/6.png`,
             `${BASE_PATH}/messenger/7.png`,
+          ]}
+        />
+      </div>
+    ),
+  },
+  {
+    id: "portfolio",
+    category: "Personal Portfolio",
+    title: "3D Portfolio",
+    src: `${BASE_PATH}/portfolio-bao/1.png`,
+    screenshots: ["1.png", "2.png", "3.png"],
+    github: "https://github.com/ngt-baor/3d-portfolio",
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.ts,
+        PROJECT_SKILLS.react,
+        PROJECT_SKILLS.nextjs,
+        PROJECT_SKILLS.tailwind,
+      ],
+      backend: [],
+    },
+    content: (
+      <div>
+        <TypographyP className="font-mono">
+          This 3D Portfolio is my personal developer portfolio customized from
+          the open-source 3D portfolio idea by Naresh Khatri. It presents my
+          profile, resume, tech stack, selected projects, and contact section
+          with an interactive Spline keyboard scene.
+        </TypographyP>
+        <ProjectsLinks repo="https://github.com/ngt-baor/3d-portfolio" />
+
+        <TypographyH3 className="my-4 mt-8">Interactive Portfolio Experience</TypographyH3>
+        <p className="mb-2 font-mono">
+          The site focuses on a dark space-themed visual style, smooth section
+          transitions, a 3D keyboard for skills, project screenshots, and direct
+          personal links for GitHub, LinkedIn, Facebook, Instagram, and email.
+        </p>
+        <SlideShow
+          images={[
+            `${BASE_PATH}/portfolio-bao/1.png`,
+            `${BASE_PATH}/portfolio-bao/2.png`,
+            `${BASE_PATH}/portfolio-bao/3.png`,
           ]}
         />
       </div>
