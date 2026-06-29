@@ -6,19 +6,24 @@ import { useEffect, useRef, useState } from "react";
 const PAN_SPEED = 70;
 const PAUSE_SECONDS = 1.2;
 const MIN_SCROLL_OVERFLOW = 0.2;
+const FALLBACK_BACKGROUND =
+  "linear-gradient(135deg, hsl(217 33% 17%), hsl(222 47% 11%))";
 
 type ScrollingPreviewProps = {
   src: string;
   alt: string;
+  bg?: string;
 };
 
 export default function ScrollingPreview({
   src,
   alt,
+  bg,
 }: ScrollingPreviewProps) {
   const reduceMotion = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement>(null);
   const [scrollPx, setScrollPx] = useState(0);
+  const [bgReady, setBgReady] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -48,6 +53,32 @@ export default function ScrollingPreview({
     };
   }, [src]);
 
+  useEffect(() => {
+    if (!bg) {
+      setBgReady(false);
+      return;
+    }
+
+    let cancelled = false;
+    const image = new window.Image();
+
+    image.onload = () => {
+      if (!cancelled) setBgReady(true);
+    };
+    image.onerror = () => {
+      if (!cancelled) setBgReady(false);
+    };
+    image.src = bg;
+
+    if (image.complete && image.naturalWidth > 0) {
+      setBgReady(true);
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [bg]);
+
   const scrolls = scrollPx > 0;
   const shouldAnimate = !reduceMotion && scrolls;
   const panDuration = scrollPx / PAN_SPEED;
@@ -62,10 +93,24 @@ export default function ScrollingPreview({
 
   return (
     <div
-      className="pointer-events-none absolute inset-0 bg-muted"
+      className="pointer-events-none absolute inset-0 overflow-hidden bg-muted"
       role="img"
       aria-label={alt}
     >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          backgroundColor: "hsl(var(--background))",
+          backgroundImage: bgReady && bg ? `url("${bg}")` : FALLBACK_BACKGROUND,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/45"
+      />
       <div
         ref={viewportRef}
         className="project-preview-shot absolute inset-x-[18px] bottom-0 top-[18px] overflow-hidden rounded-t-md border border-white/15 bg-background shadow-2xl"

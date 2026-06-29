@@ -31,6 +31,10 @@ yarn-error.log*
 /.agents/
 /.codex/
 
+# upstream scratch paths
+src/app/(components)
+public/assets/projects-screenshots/raw/
+
 # local env files
 .env*.local
 
