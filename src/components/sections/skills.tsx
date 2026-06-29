@@ -3,7 +3,7 @@
 import type { CSSProperties } from "react";
 import SectionWrapper from "../ui/section-wrapper";
 import { SectionHeader } from "./section-header";
-import { ADDITIONAL_SKILL_NAMES, SKILLS } from "@/data/constants";
+import { SKILLS } from "@/data/constants";
 import { usePerfProfile } from "@/hooks/use-perf-profile";
 import { cn } from "@/lib/utils";
 
@@ -19,7 +19,6 @@ import { cn } from "@/lib/utils";
 const SkillsSection = () => {
   const { disable3D, ready } = usePerfProfile();
   const showGrid = ready && disable3D;
-  const additionalSkills = ADDITIONAL_SKILL_NAMES.map((skillName) => SKILLS[skillName]);
 
   if (showGrid) {
     return (
@@ -81,26 +80,6 @@ const SkillsSection = () => {
       className="relative w-full h-screen md:h-[150dvh] pointer-events-none"
     >
       <SectionHeader id="skills" title="Tech Stack" desc="(hint: press a key)" />
-      <ul className="pointer-events-auto absolute inset-x-4 bottom-8 z-10 mx-auto grid max-w-5xl grid-cols-2 gap-2 sm:grid-cols-3 md:bottom-14 md:grid-cols-4 lg:grid-cols-6">
-        {additionalSkills.map((skill) => (
-          <li
-            key={skill.name}
-            style={{ "--skill": skill.color } as CSSProperties}
-            className="flex items-center gap-2 rounded-md border border-border/60 bg-background/70 px-3 py-2 text-xs text-foreground/80 backdrop-blur-md transition-colors hover:border-[var(--skill)] hover:text-foreground"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={skill.icon}
-              alt=""
-              width={18}
-              height={18}
-              loading="lazy"
-              className="size-4 object-contain"
-            />
-            <span className="truncate">{skill.label}</span>
-          </li>
-        ))}
-      </ul>
     </SectionWrapper>
   );
 };

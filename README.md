@@ -37,7 +37,7 @@ I am an IT student aiming to gain practical backend development experience and i
 - Facebook: [ngt.baor](https://facebook.com/ngt.baor)
 - Portfolio: [thebao.vercel.app](https://thebao.vercel.app/)
 - Instagram: [ngt_baor](https://www.instagram.com/ngt_baor)
-- LinkedIn: [Bao Nguyen The](https://www.linkedin.com/in/b%E1%BA%A3o-nguy%E1%BB%85n-th%E1%BA%BF-237972418)
+- LinkedIn: [ngt-baor](https://linkedin.com/in/ngt-baor)
 - Email: [baontph51745@gmail.com](mailto:baontph51745@gmail.com)
 
 ## Featured Projects

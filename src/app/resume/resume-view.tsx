@@ -48,9 +48,8 @@ const RESUME_LINKS: ResumeLink[] = [
   {
     page: 0,
     label: "LinkedIn profile",
-    href:
-      "https://www.linkedin.com/in/b%E1%BA%A3o-nguy%E1%BB%85n-th%E1%BA%BF-237972418",
-    rect: [29.976404, 314.33527, 161.872589, 326.32581],
+    href: "https://linkedin.com/in/ngt-baor",
+    rect: [29.976404, 314.33527, 131.896179, 326.32581],
   },
   {
     page: 0,

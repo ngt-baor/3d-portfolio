@@ -37,7 +37,7 @@ const config = {
   },
   social: {
     twitter: "",
-    linkedin: "https://www.linkedin.com/in/b%E1%BA%A3o-nguy%E1%BB%85n-th%E1%BA%BF-237972418",
+    linkedin: "https://linkedin.com/in/ngt-baor",
     instagram: "https://www.instagram.com/ngt_baor",
     facebook: "https://facebook.com/ngt.baor",
     github: "https://github.com/ngt-baor",

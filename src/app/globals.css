@@ -154,6 +154,11 @@ body > canvas {
   fill: none;
 }
 
+.portfolio-slider .splide__arrow--prev svg,
+.portfolio-slider .splide__arrow--next svg {
+  transform: none;
+}
+
 .portfolio-slider .splide__pagination {
   position: static;
   margin-top: 0.9rem;
