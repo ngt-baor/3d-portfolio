@@ -2,6 +2,10 @@
 
 import React, { useEffect } from "react";
 import { ReactLenis, useLenis } from "@/lib/lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface LenisProps {
   children: React.ReactNode;
@@ -9,22 +13,22 @@ interface LenisProps {
 }
 
 function SmoothScroll({ children, isInsideModal = false }: LenisProps) {
-  const lenis = useLenis(({ scroll }) => {
-    // called every scroll
-  });
+  const lenis = useLenis(() => ScrollTrigger.update());
 
   useEffect(() => {
-    const handleReady = () => {
-      lenis?.stop();
-      lenis?.start();
-    };
-    document.addEventListener("DOMContentLoaded", handleReady);
-    return () => document.removeEventListener("DOMContentLoaded", handleReady);
+    if (!lenis) return;
+
+    const raf = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => gsap.ticker.remove(raf);
   }, [lenis]);
 
   return (
     <ReactLenis
       root
+      autoRaf={false}
       options={{
         duration: 2,
         prevent: (node) => {

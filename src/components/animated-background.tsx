@@ -204,43 +204,55 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
   const getKeycapsAnimation = () => {
     if (!splineApp) return { start: () => { }, stop: () => { } };
 
-    let tweens: gsap.core.Tween[] = [];
-    const removePrevTweens = () => tweens.forEach((t) => t.kill());
+    let floatTweens: gsap.core.Tween[] = [];
+    let settleTweens: gsap.core.Tween[] = [];
+
+    const killFloatTweens = () => {
+      floatTweens.forEach((tween) => tween.kill());
+      floatTweens = [];
+    };
+
+    const killSettleTweens = () => {
+      settleTweens.forEach((tween) => tween.kill());
+      settleTweens = [];
+    };
 
     const start = () => {
-      removePrevTweens();
+      killSettleTweens();
+      killFloatTweens();
       Object.values(SKILLS)
         .sort(() => Math.random() - 0.5)
         .forEach((skill, idx) => {
           const keycap = splineApp.findObjectByName(skill.name);
           if (!keycap) return;
-          const t = gsap.to(keycap.position, {
-            y: Math.random() * 200 + 200,
-            duration: Math.random() * 2 + 2,
-            delay: idx * 0.6,
-            repeat: -1,
-            yoyo: true,
-            yoyoEase: "none",
-            ease: "elastic.out(1,0.3)",
-          });
-          tweens.push(t);
+          floatTweens.push(
+            gsap.to(keycap.position, {
+              y: Math.random() * 200 + 200,
+              duration: Math.random() * 2 + 2,
+              delay: idx * 0.6,
+              repeat: -1,
+              yoyo: true,
+              yoyoEase: "none",
+              ease: "elastic.out(1,0.3)",
+            })
+          );
         });
     };
 
     const stop = () => {
-      removePrevTweens();
+      killFloatTweens();
+      killSettleTweens();
       Object.values(SKILLS).forEach((skill) => {
         const keycap = splineApp.findObjectByName(skill.name);
         if (!keycap) return;
-        const t = gsap.to(keycap.position, {
-          y: 0,
-          duration: 4,
-          repeat: 1,
-          ease: "elastic.out(1,0.7)",
-        });
-        tweens.push(t);
+        settleTweens.push(
+          gsap.to(keycap.position, {
+            y: 0,
+            duration: 4,
+            ease: "elastic.out(1,0.7)",
+          })
+        );
       });
-      setTimeout(removePrevTweens, 1000);
     };
 
     return { start, stop };
@@ -361,6 +373,7 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
   useEffect(() => {
     if (!splineApp) return;
 
+    let cancelled = false;
     let rotateKeyboard: gsap.core.Tween | undefined;
     let teardownKeyboard: gsap.core.Tween | undefined;
 
@@ -414,19 +427,23 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
       // Handle Bongo Cat
       if (activeSection === "projects") {
         await sleep(300);
+        if (cancelled) return;
         bongoAnimationRef.current?.start();
       } else {
         await sleep(200);
+        if (cancelled) return;
         bongoAnimationRef.current?.stop();
       }
 
       // Handle Contact Section Animations
       if (activeSection === "contact") {
         await sleep(600);
+        if (cancelled) return;
         teardownKeyboard?.restart();
         keycapAnimationsRef.current?.start();
       } else {
         await sleep(600);
+        if (cancelled) return;
         teardownKeyboard?.pause();
         keycapAnimationsRef.current?.stop();
       }
@@ -435,6 +452,7 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
     manageAnimations();
 
     return () => {
+      cancelled = true;
       rotateKeyboard?.kill();
       teardownKeyboard?.kill();
     };
