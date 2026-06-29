@@ -34,7 +34,10 @@ const SocialMediaButtons = () => {
   const ref = useRef<HTMLDivElement>(null);
   const show = useInView(ref, { once: true });
   return (
-    <div ref={ref} className="z-10">
+    <div
+      ref={ref}
+      className="z-10 flex items-center justify-center sm:justify-self-center"
+    >
       {show &&
         BUTTONS.filter((button) => button.href).map((button) => (
           <Link href={button.href} key={button.name} target="_blank">

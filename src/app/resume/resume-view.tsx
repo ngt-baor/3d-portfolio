@@ -1,32 +1,107 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Download, ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import ResumeDoodle from "./resume-doodle";
+import { ArrowLeft, Download } from "lucide-react";
 
 const RESUME_PATH = "/BaoCV.pdf";
+const RESUME_PAGES = [
+  "/assets/resume/bao-cv-page-1.png",
+  "/assets/resume/bao-cv-page-2.png",
+];
+
+const PDF_PAGE_WIDTH = 594.95996;
+const PDF_PAGE_HEIGHT = 841.91998;
+
+type ResumeLink = {
+  page: number;
+  label: string;
+  href: string;
+  rect: [number, number, number, number];
+};
+
+const RESUME_LINKS: ResumeLink[] = [
+  {
+    page: 0,
+    label: "GitHub profile",
+    href: "https://github.com/ngt-baor",
+    rect: [29.976404, 475.45844, 115.409157, 487.44901],
+  },
+  {
+    page: 0,
+    label: "Portfolio website",
+    href: "https://thebao.vercel.app/",
+    rect: [29.976404, 434.9903, 104.167999, 446.98087],
+  },
+  {
+    page: 0,
+    label: "Facebook profile",
+    href: "https://facebook.com/ngt.baor",
+    rect: [29.976404, 394.52216, 125.900902, 406.5127],
+  },
+  {
+    page: 0,
+    label: "Instagram profile",
+    href: "https://www.instagram.com/ngt_baor",
+    rect: [29.976404, 354.05402, 131.146774, 366.04459],
+  },
+  {
+    page: 0,
+    label: "LinkedIn profile",
+    href:
+      "https://www.linkedin.com/in/b%E1%BA%A3o-nguy%E1%BB%85n-th%E1%BA%BF-237972418",
+    rect: [29.976404, 314.33527, 161.872589, 326.32581],
+  },
+  {
+    page: 0,
+    label: "Certain Shop repository",
+    href: "https://github.com/ngt-baor/Certain-Shop",
+    rect: [268.28882, 243.89075, 389.69327, 254.38245],
+  },
+  {
+    page: 1,
+    label: "EzBook repository",
+    href: "https://github.com/ngt-baor/EzBook",
+    rect: [268.28882, 760.23425, 369.4592, 770.72601],
+  },
+  {
+    page: 1,
+    label: "DiscordLyrics repository",
+    href: "https://github.com/ngt-baor/Discord_Lyrics",
+    rect: [268.28882, 614.0993, 394.1897, 624.59106],
+  },
+  {
+    page: 1,
+    label: "Messenger repository",
+    href: "https://github.com/ngt-baor/Messenger-reup",
+    rect: [268.28882, 480.70428, 401.68381, 491.19608],
+  },
+  {
+    page: 1,
+    label: "3D Portfolio repository",
+    href: "https://github.com/ngt-baor/3d-portfolio",
+    rect: [268.28882, 347.3093, 385.9462, 357.80109],
+  },
+];
+
+function getLinkPosition([x1, y1, x2, y2]: ResumeLink["rect"]) {
+  return {
+    left: `${(x1 / PDF_PAGE_WIDTH) * 100}%`,
+    top: `${((PDF_PAGE_HEIGHT - y2) / PDF_PAGE_HEIGHT) * 100}%`,
+    width: `${((x2 - x1) / PDF_PAGE_WIDTH) * 100}%`,
+    height: `${((y2 - y1) / PDF_PAGE_HEIGHT) * 100}%`,
+  };
+}
 
 export default function ResumeView() {
   return (
-    <div className="flex min-h-screen flex-col font-sans">
-      {/* Hide the global nav on mobile, only while this page is mounted */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html:
-            "@media (max-width: 767px){ header { display: none !important; } }",
-        }}
-      />
-
-      {/* Top bar: back (left) + download (right) */}
-      <div className="mx-auto w-full max-w-4xl shrink-0 px-4 pt-16 md:pt-24">
+    <main className="min-h-screen font-sans">
+      <div className="mx-auto w-full max-w-5xl px-4 pt-16 md:pt-24">
         <motion.div
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-4 flex items-center justify-between gap-4"
+          className="mb-6 flex items-center justify-between gap-4"
         >
           <Link
             href="/"
@@ -35,34 +110,54 @@ export default function ResumeView() {
             <ArrowLeft className="h-4 w-4" />
             Back to portfolio
           </Link>
-          <Button>
-            <a
-              href={RESUME_PATH}
-              download
-              className="flex gap-2 text-sm transition-colors hover:text-foreground"
-            >
-              <Download className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-              Download PDF
-            </a>
-          </Button>
-        </motion.div>
-      </div>
 
-      {/* PDF viewer — centered on mobile (short A4 card), top-aligned on desktop (tall) */}
-      <div className="mx-auto flex w-full max-w-4xl flex-1 items-center justify-center px-2 pb-6 md:items-start md:px-4 md:pb-24">
-        {/* opacity-only animation: a transformed ancestor would trap the fixed doodle FAB */}
+          <a
+            href={RESUME_PATH}
+            download="Nguyen-The-Bao-CV.pdf"
+            type="application/pdf"
+            className="inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            <Download className="h-4 w-4" />
+            Download PDF
+          </a>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="aspect-[210/297] w-full overflow-hidden rounded-2xl bg-white shadow-xl"
+          className="mx-auto flex w-full max-w-[794px] flex-col gap-8 pb-24"
         >
-          <ResumeDoodle
-            src={`${RESUME_PATH}#toolbar=0&navpanes=0&view=FitH`}
-            title="Nguyen The Bao Resume"
-          />
+          {RESUME_PAGES.map((src, index) => (
+            <figure
+              key={src}
+              className="relative overflow-hidden rounded-sm bg-white shadow-2xl ring-1 ring-black/10"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={src}
+                alt={`Nguyen The Bao resume page ${index + 1}`}
+                className="block h-auto w-full"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+              {RESUME_LINKS.filter((link) => link.page === index).map(
+                (link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    title={link.label}
+                    style={getLinkPosition(link.rect)}
+                    className="absolute z-10 block cursor-pointer rounded-sm outline-none transition-colors hover:bg-sky-400/10 focus-visible:bg-sky-400/15 focus-visible:ring-2 focus-visible:ring-sky-500"
+                  />
+                ),
+              )}
+            </figure>
+          ))}
         </motion.div>
       </div>
-    </div>
+    </main>
   );
 }

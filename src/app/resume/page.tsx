@@ -1,9 +1,10 @@
+import type { Metadata } from "next";
 import ResumeView from "./resume-view";
 
-export const metadata = {
-  title: "Résumé | Naresh Khatri",
+export const metadata: Metadata = {
+  title: "Resume | Nguyen The Bao",
   description:
-    "Résumé of Naresh Khatri — Senior Full-Stack Engineer. View online or download the PDF.",
+    "Resume of Nguyen The Bao - Backend Developer Intern. View online or download the PDF.",
 };
 
 export default function ResumePage() {

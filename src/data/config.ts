@@ -26,7 +26,7 @@ const config = {
   ],
   author: "Nguyen The Bao",
   email: "baontph51745@gmail.com",
-  site: "http://localhost:3000",
+  site: "https://thebao.vercel.app",
 
   // for github stars button
   githubUsername: "ngt-baor",
@@ -39,7 +39,7 @@ const config = {
     twitter: "",
     linkedin: "https://www.linkedin.com/in/b%E1%BA%A3o-nguy%E1%BB%85n-th%E1%BA%BF-237972418",
     instagram: "https://www.instagram.com/ngt_baor",
-    facebook: "https://www.facebook.com/bao.nguyenthe2005",
+    facebook: "https://facebook.com/ngt.baor",
     github: "https://github.com/ngt-baor",
   },
 };
