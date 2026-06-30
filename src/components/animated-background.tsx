@@ -30,7 +30,10 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
 
   // Animation controllers refs
   const bongoAnimationRef = useRef<{ start: () => void; stop: () => void }>(null);
-  const keycapAnimationsRef = useRef<{ start: () => void; stop: () => void }>(null);
+  const keycapAnimationsRef = useRef<{
+    start: () => void;
+    stop: (options?: { settle?: boolean }) => void;
+  }>(null);
 
   const [keyboardRevealed, setKeyboardRevealed] = useState(false);
 
@@ -206,6 +209,7 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
 
     let floatTweens: gsap.core.Tween[] = [];
     let settleTweens: gsap.core.Tween[] = [];
+    let floating = false;
 
     const killFloatTweens = () => {
       floatTweens.forEach((tween) => tween.kill());
@@ -220,6 +224,7 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
     const start = () => {
       killSettleTweens();
       killFloatTweens();
+      floating = true;
       Object.values(SKILLS)
         .sort(() => Math.random() - 0.5)
         .forEach((skill, idx) => {
@@ -239,17 +244,21 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
         });
     };
 
-    const stop = () => {
+    const stop = (options: { settle?: boolean } = {}) => {
+      const { settle = true } = options;
+      if (!floating && floatTweens.length === 0) return;
+      floating = false;
       killFloatTweens();
       killSettleTweens();
+      if (!settle) return;
       Object.values(SKILLS).forEach((skill) => {
         const keycap = splineApp.findObjectByName(skill.name);
         if (!keycap) return;
         settleTweens.push(
           gsap.to(keycap.position, {
             y: 0,
-            duration: 4,
-            ease: "elastic.out(1,0.7)",
+            duration: 0.8,
+            ease: "power3.out",
           })
         );
       });
@@ -318,7 +327,7 @@ const KeyboardScene = ({ maxDpr }: { maxDpr: number }) => {
     keycapAnimationsRef.current = getKeycapsAnimation();
     return () => {
       bongoAnimationRef.current?.stop()
-      keycapAnimationsRef.current?.stop()
+      keycapAnimationsRef.current?.stop({ settle: false })
       // Kill the section ScrollTriggers so they don't orphan when the scene
       // unmounts (e.g. toggling reduced motion) and fire on the disposed app.
       timelines.forEach((tl) => {

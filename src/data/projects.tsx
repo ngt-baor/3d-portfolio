@@ -15,16 +15,16 @@ const ProjectsLinks = ({ live, repo }: { live?: string; repo?: string }) => {
   if (!live && !repo) return null;
 
   return (
-    <div className="my-3 mb-8 flex flex-col items-center justify-start gap-3 md:flex-row">
+    <div className="my-6 flex flex-col items-start justify-start gap-3 md:flex-row">
       {live && (
         <Link
           className="flex gap-2 font-mono underline"
           rel="noopener"
-          target="_new"
+          target="_blank"
           href={live}
         >
           <Button variant="default" size="sm">
-            Visit
+            Visit Website
             <ArrowUpRight className="ml-3 size-5" />
           </Button>
         </Link>
@@ -33,7 +33,7 @@ const ProjectsLinks = ({ live, repo }: { live?: string; repo?: string }) => {
         <Link
           className="flex gap-2 font-mono underline"
           rel="noopener"
-          target="_new"
+          target="_blank"
           href={repo}
         >
           <Button variant="default" size="sm">
@@ -45,6 +45,36 @@ const ProjectsLinks = ({ live, repo }: { live?: string; repo?: string }) => {
     </div>
   );
 };
+
+const ProjectLead = ({ children }: { children: ReactNode }) => (
+  <TypographyP className="mx-auto max-w-4xl text-center font-mono text-2xl font-semibold leading-snug text-foreground md:text-3xl">
+    {children}
+  </TypographyP>
+);
+
+const ProjectBody = ({ children }: { children: ReactNode }) => (
+  <p className="font-mono text-base font-semibold leading-8 text-foreground/90 md:text-lg md:leading-9">
+    {children}
+  </p>
+);
+
+const ProjectFeature = ({
+  title,
+  children,
+  images,
+}: {
+  title: string;
+  children: ReactNode;
+  images?: string[];
+}) => (
+  <section className="space-y-5">
+    <TypographyH3 className="font-display text-3xl font-black tracking-tight md:text-4xl">
+      {title}
+    </TypographyH3>
+    <ProjectBody>{children}</ProjectBody>
+    {images && <SlideShow images={images} />}
+  </section>
+);
 
 export type Skill = {
   title: string;
@@ -190,23 +220,21 @@ const projects: Project[] = [
       ],
     },
     content: (
-      <div>
-        <TypographyP className="font-mono">
-          EzBook is a Java Servlet/JSP booking system for salon and spa
-          operations. It supports online booking for customers, staff booking
-          handling, and admin management for accounts, services, vouchers,
-          invoices, and statistics.
-        </TypographyP>
+      <div className="space-y-12">
+        <ProjectLead>
+          A role-based service booking management system for salon and spa
+          operations.
+        </ProjectLead>
+        <ProjectBody>
+          EzBook supports customer booking, staff processing, and admin
+          management for accounts, services, vouchers, invoices, statistics, and
+          Gmail OTP account recovery. My role focused on the Java web flow,
+          database-backed CRUD modules, and practical booking workflows.
+        </ProjectBody>
         <ProjectsLinks repo="https://github.com/ngt-baor/EzBook" />
 
-        <TypographyH3 className="my-4 mt-8">User, Staff, and Admin Flows</TypographyH3>
-        <p className="mb-2 font-mono">
-          The system separates responsibilities by role: users can register,
-          book services, manage profiles, and recover accounts with Gmail OTP;
-          staff can process bookings and invoices; admins manage master data
-          and operational reports.
-        </p>
-        <SlideShow
+        <ProjectFeature
+          title="User, staff, and admin booking flows"
           images={[
             `${BASE_PATH}/ezbook/1.png`,
             `${BASE_PATH}/ezbook/2.png`,
@@ -221,16 +249,15 @@ const projects: Project[] = [
             `${BASE_PATH}/ezbook/11.png`,
             `${BASE_PATH}/ezbook/12.png`,
           ]}
-        />
+        >
+          The system separates responsibilities by role: customers can register,
+          book services, manage profiles, and recover accounts with Gmail OTP;
+          staff can process bookings and invoices; admins manage master data and
+          operational reports.
+        </ProjectFeature>
 
-        <TypographyH3 className="my-4 mt-8">Backend and Database</TypographyH3>
-        <p className="mb-2 font-mono">
-          Built with Java 17, Jakarta Servlet, JSP/JSTL, SQL Server, Tomcat, and
-          Jakarta Mail. The application focuses on real booking workflows,
-          database-backed CRUD modules, authentication, OTP verification, and
-          role-based access control.
-        </p>
-        <SlideShow
+        <ProjectFeature
+          title="Backend, database, and OTP workflow"
           images={[
             `${BASE_PATH}/ezbook/13.png`,
             `${BASE_PATH}/ezbook/14.png`,
@@ -240,7 +267,12 @@ const projects: Project[] = [
             `${BASE_PATH}/ezbook/18.png`,
             `${BASE_PATH}/ezbook/19.png`,
           ]}
-        />
+        >
+          Built with Java 17, Jakarta Servlet, JSP/JSTL, SQL Server, Tomcat, and
+          Jakarta Mail. The application focuses on real booking workflows,
+          database-backed CRUD modules, authentication, OTP verification, and
+          role-based access control.
+        </ProjectFeature>
       </div>
     ),
   },
@@ -257,31 +289,35 @@ const projects: Project[] = [
       backend: [PROJECT_SKILLS.ts, PROJECT_SKILLS.node, PROJECT_SKILLS.electron],
     },
     content: (
-      <div>
-        <TypographyP className="font-mono">
-          DiscordLyrics is a Windows desktop app that reads the currently
-          playing song from Spotify, SpotX, or YouTube Music, fetches synced
-          lyrics, and publishes the current lyric line to Discord Custom Status.
-        </TypographyP>
+      <div className="space-y-12">
+        <ProjectLead>
+          A Windows desktop utility that turns synced lyrics into Discord Custom
+          Status.
+        </ProjectLead>
+        <ProjectBody>
+          DiscordLyrics reads the current song from Spotify, SpotX, or YouTube
+          Music, fetches synced lyrics, and updates Discord Custom Status with
+          the current lyric line. It is packaged as a desktop workflow with tray
+          behavior, settings, and release updates.
+        </ProjectBody>
         <ProjectsLinks
           live="https://github.com/ngt-baor/Discord_Lyrics/releases"
           repo="https://github.com/ngt-baor/Discord_Lyrics"
         />
 
-        <TypographyH3 className="my-4 mt-8">Music Detection and Lyrics Sync</TypographyH3>
-        <p className="mb-2 font-mono">
-          The app supports multiple music sources, lyric caching, status update
-          rate limiting, a tray workflow, update checks through GitHub Releases,
-          and a Vietnamese desktop UI with a floating mini popup.
-        </p>
-        <SlideShow
+        <ProjectFeature
+          title="Music detection and lyrics sync"
           images={[
             `${BASE_PATH}/discord-lyrics/1.png`,
             `${BASE_PATH}/discord-lyrics/2.png`,
             `${BASE_PATH}/discord-lyrics/3.png`,
             `${BASE_PATH}/discord-lyrics/4.png`,
           ]}
-        />
+        >
+          The app supports multiple music sources, lyric caching, status update
+          rate limiting, a tray workflow, update checks through GitHub Releases,
+          and a Vietnamese desktop UI with a floating mini popup.
+        </ProjectFeature>
       </div>
     ),
   },
@@ -298,25 +334,24 @@ const projects: Project[] = [
       backend: [PROJECT_SKILLS.electron],
     },
     content: (
-      <div>
-        <TypographyP className="font-mono">
-          Messenger Desktop is a Windows Electron app for Messenger Web. It
-          supports separate sessions for multiple accounts, PIN lock, unread
-          badges, light/dark mode, window pinning, tray minimization, and
-          Messenger call support through Chromium.
-        </TypographyP>
+      <div className="space-y-12">
+        <ProjectLead>
+          A Windows desktop wrapper for Messenger Web with multi-account local
+          sessions.
+        </ProjectLead>
+        <ProjectBody>
+          Messenger Desktop packages Messenger Web into an Electron app with
+          separate account sessions, PIN lock, unread badges, light/dark mode,
+          window pinning, tray minimization, and Chromium-based call support.
+          The project is still in active development.
+        </ProjectBody>
         <ProjectsLinks
           live="https://github.com/ngt-baor/Messenger-reup/releases"
           repo="https://github.com/ngt-baor/Messenger-reup"
         />
 
-        <TypographyH3 className="my-4 mt-8">Multi-account Desktop Workflow</TypographyH3>
-        <p className="mb-2 font-mono">
-          The app packages Messenger into a desktop experience with local
-          profiles, session persistence, installer packaging, and native
-          Windows app behavior.
-        </p>
-        <SlideShow
+        <ProjectFeature
+          title="Multi-account desktop workflow"
           images={[
             `${BASE_PATH}/messenger/1.png`,
             `${BASE_PATH}/messenger/2.png`,
@@ -326,7 +361,11 @@ const projects: Project[] = [
             `${BASE_PATH}/messenger/6.png`,
             `${BASE_PATH}/messenger/7.png`,
           ]}
-        />
+        >
+          The app packages Messenger into a desktop experience with local
+          profiles, session persistence, installer packaging, and native
+          Windows app behavior.
+        </ProjectFeature>
       </div>
     ),
   },
@@ -347,28 +386,30 @@ const projects: Project[] = [
       backend: [],
     },
     content: (
-      <div>
-        <TypographyP className="font-mono">
-          This 3D Portfolio is my personal developer portfolio customized from
-          the open-source 3D portfolio idea by Naresh Khatri. It presents my
-          profile, resume, tech stack, selected projects, and contact section
-          with an interactive Spline keyboard scene.
-        </TypographyP>
+      <div className="space-y-12">
+        <ProjectLead>
+          An interactive personal developer portfolio built around a 3D skills
+          keyboard.
+        </ProjectLead>
+        <ProjectBody>
+          This 3D Portfolio is customized from the open-source portfolio idea by
+          Naresh Khatri. It presents my profile, resume, tech stack, selected
+          projects, and contact section through a dark space-themed interface.
+        </ProjectBody>
         <ProjectsLinks repo="https://github.com/ngt-baor/3d-portfolio" />
 
-        <TypographyH3 className="my-4 mt-8">Interactive Portfolio Experience</TypographyH3>
-        <p className="mb-2 font-mono">
-          The site focuses on a dark space-themed visual style, smooth section
-          transitions, a 3D keyboard for skills, project screenshots, and direct
-          personal links for GitHub, LinkedIn, Facebook, Instagram, and email.
-        </p>
-        <SlideShow
+        <ProjectFeature
+          title="Interactive portfolio experience"
           images={[
             `${BASE_PATH}/portfolio-bao/1.png`,
             `${BASE_PATH}/portfolio-bao/2.png`,
             `${BASE_PATH}/portfolio-bao/3.png`,
           ]}
-        />
+        >
+          The site focuses on a dark space-themed visual style, smooth section
+          transitions, a 3D keyboard for skills, project screenshots, and direct
+          personal links for GitHub, LinkedIn, Facebook, Instagram, and email.
+        </ProjectFeature>
       </div>
     ),
   },

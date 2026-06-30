@@ -120,7 +120,7 @@ export default function ScrollingPreview({
           style={{
             backgroundImage: `url("${src}")`,
             backgroundPosition: scrolls ? "50% 0%" : "center",
-            backgroundSize: scrolls ? "100% auto" : "cover",
+            backgroundSize: scrolls ? "100% auto" : "contain",
           }}
           animate={
             shouldAnimate
