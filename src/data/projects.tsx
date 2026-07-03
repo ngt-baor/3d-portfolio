@@ -6,6 +6,8 @@ import Link from "next/link";
 import React, { ReactNode } from "react";
 
 const BASE_PATH = "/assets/projects-screenshots";
+const ezbookShot = (fileName: string) =>
+  `${BASE_PATH}/ezbook-v2/${fileName}`;
 
 const icon = (src: string, alt: string) => (
   <img src={src} alt={alt} className="size-full object-contain" />
@@ -193,7 +195,7 @@ const projects: Project[] = [
     id: "ezbook",
     category: "Booking Management",
     title: "EzBook",
-    src: `${BASE_PATH}/ezbook/06-admin-dashboard.png`,
+    src: ezbookShot("06-admin-dashboard.png"),
     screenshots: [
       "01-landing.png",
       "02-admin-staff-login.png",
@@ -243,18 +245,18 @@ const projects: Project[] = [
         <ProjectFeature
           title="User, staff, and admin booking flows"
           images={[
-            `${BASE_PATH}/ezbook/01-landing.png`,
-            `${BASE_PATH}/ezbook/02-admin-staff-login.png`,
-            `${BASE_PATH}/ezbook/03-customer-login.png`,
-            `${BASE_PATH}/ezbook/04-customer-registration.png`,
-            `${BASE_PATH}/ezbook/05-forgot-password.png`,
-            `${BASE_PATH}/ezbook/06-admin-dashboard.png`,
-            `${BASE_PATH}/ezbook/07-staff-management.png`,
-            `${BASE_PATH}/ezbook/08-staff-edit.png`,
-            `${BASE_PATH}/ezbook/16-staff-dashboard.png`,
-            `${BASE_PATH}/ezbook/17-customer-dashboard.png`,
-            `${BASE_PATH}/ezbook/18-customer-online-booking.png`,
-            `${BASE_PATH}/ezbook/19-customer-profile.png`,
+            ezbookShot("01-landing.png"),
+            ezbookShot("02-admin-staff-login.png"),
+            ezbookShot("03-customer-login.png"),
+            ezbookShot("04-customer-registration.png"),
+            ezbookShot("05-forgot-password.png"),
+            ezbookShot("06-admin-dashboard.png"),
+            ezbookShot("07-staff-management.png"),
+            ezbookShot("08-staff-edit.png"),
+            ezbookShot("16-staff-dashboard.png"),
+            ezbookShot("17-customer-dashboard.png"),
+            ezbookShot("18-customer-online-booking.png"),
+            ezbookShot("19-customer-profile.png"),
           ]}
         >
           The system separates responsibilities by role: customers can register,
@@ -266,13 +268,13 @@ const projects: Project[] = [
         <ProjectFeature
           title="Backend, database, and OTP workflow"
           images={[
-            `${BASE_PATH}/ezbook/09-account-management.png`,
-            `${BASE_PATH}/ezbook/10-service-management.png`,
-            `${BASE_PATH}/ezbook/11-promotion-management.png`,
-            `${BASE_PATH}/ezbook/12-booking-management.png`,
-            `${BASE_PATH}/ezbook/13-invoice-management.png`,
-            `${BASE_PATH}/ezbook/14-statistics-dashboard.png`,
-            `${BASE_PATH}/ezbook/15-admin-profile.png`,
+            ezbookShot("09-account-management.png"),
+            ezbookShot("10-service-management.png"),
+            ezbookShot("11-promotion-management.png"),
+            ezbookShot("12-booking-management.png"),
+            ezbookShot("13-invoice-management.png"),
+            ezbookShot("14-statistics-dashboard.png"),
+            ezbookShot("15-admin-profile.png"),
           ]}
         >
           Built with Java 17, Jakarta Servlet, JSP/JSTL, SQL Server, Tomcat, and
