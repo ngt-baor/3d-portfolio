@@ -62,7 +62,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
         </ResponsiveDialogTrigger>
 
         <ResponsiveDialogContent className="md:max-w-5xl md:h-[88vh] md:!flex md:flex-col md:overflow-hidden md:p-0 md:gap-0 border-border/70 bg-[#020817]/95 text-foreground shadow-2xl">
-          <div className="shrink-0 border-b border-border/70 bg-[#020817]/90 px-5 py-5 backdrop-blur-sm sm:px-8">
+          <div className="shrink-0 border-b border-border/70 bg-[#020817]/90 px-5 py-5 backdrop-blur-sm sm:pl-8 sm:pr-16">
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex min-w-0 flex-wrap items-center gap-3 sm:flex-nowrap">
                 <ResponsiveDialogTitle className="min-w-0 font-display text-2xl font-black tracking-tight text-foreground sm:truncate md:text-3xl">
