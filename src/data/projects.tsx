@@ -13,6 +13,12 @@ const icon = (src: string, alt: string) => (
   <img src={src} alt={alt} className="size-full object-contain" />
 );
 
+const textIcon = (label: string) => (
+  <span className="flex size-full items-center justify-center text-xs font-black">
+    {label}
+  </span>
+);
+
 const ProjectsLinks = ({ live, repo }: { live?: string; repo?: string }) => {
   if (!live && !repo) return null;
 
@@ -176,6 +182,42 @@ const PROJECT_SKILLS = {
     fg: "white",
     icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", "CSS"),
   },
+  postgresql: {
+    title: "PostgreSQL",
+    bg: "black",
+    fg: "white",
+    icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", "PostgreSQL"),
+  },
+  supabase: {
+    title: "Supabase",
+    bg: "black",
+    fg: "white",
+    icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg", "Supabase"),
+  },
+  docker: {
+    title: "Docker",
+    bg: "black",
+    fg: "white",
+    icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", "Docker"),
+  },
+  render: {
+    title: "Render",
+    bg: "black",
+    fg: "white",
+    icon: textIcon("R"),
+  },
+  jstl: {
+    title: "JSTL",
+    bg: "black",
+    fg: "white",
+    icon: textIcon("JSTL"),
+  },
+  jakartaMail: {
+    title: "Jakarta Mail",
+    bg: "black",
+    fg: "white",
+    icon: textIcon("@"),
+  },
 };
 
 export type Project = {
@@ -218,32 +260,46 @@ const projects: Project[] = [
       "19-customer-profile.png",
     ],
     github: "https://github.com/ngt-baor/EzBook",
+    live: "https://ezbook-dz8b.onrender.com",
     skills: {
-      frontend: [PROJECT_SKILLS.html, PROJECT_SKILLS.css, PROJECT_SKILLS.jsp],
+      frontend: [
+        PROJECT_SKILLS.html,
+        PROJECT_SKILLS.css,
+        PROJECT_SKILLS.jsp,
+        PROJECT_SKILLS.jstl,
+      ],
       backend: [
         PROJECT_SKILLS.java,
         PROJECT_SKILLS.servlet,
-        PROJECT_SKILLS.sqlserver,
+        PROJECT_SKILLS.postgresql,
+        PROJECT_SKILLS.supabase,
         PROJECT_SKILLS.tomcat,
         PROJECT_SKILLS.maven,
+        PROJECT_SKILLS.docker,
+        PROJECT_SKILLS.render,
+        PROJECT_SKILLS.jakartaMail,
       ],
     },
     content: (
       <div className="space-y-12">
         <ProjectLead>
-          A role-based service booking management system for salon and spa
+          A cloud-deployed Java booking management system for salon and spa
           operations.
         </ProjectLead>
         <ProjectBody>
-          EzBook supports customer booking, staff processing, and admin
-          management for accounts, services, vouchers, invoices, statistics, and
-          Gmail OTP account recovery. My role focused on the Java web flow,
-          database-backed CRUD modules, and practical booking workflows.
+          EzBook v2 supports customer online booking, staff booking processing,
+          and admin operations for accounts, services, promotions, invoices,
+          statistics, and account security. The project was updated from a local
+          Servlet/JSP application into a Docker-ready deployment using Render
+          and Supabase PostgreSQL.
         </ProjectBody>
-        <ProjectsLinks repo="https://github.com/ngt-baor/EzBook" />
+        <ProjectsLinks
+          live="https://ezbook-dz8b.onrender.com"
+          repo="https://github.com/ngt-baor/EzBook"
+        />
 
         <ProjectFeature
-          title="User, staff, and admin booking flows"
+          title="Role-based booking workflows"
           images={[
             ezbookShot("01-landing.png"),
             ezbookShot("02-admin-staff-login.png"),
@@ -260,13 +316,14 @@ const projects: Project[] = [
           ]}
         >
           The system separates responsibilities by role: customers can register,
-          book services, manage profiles, and recover accounts with Gmail OTP;
-          staff can process bookings and invoices; admins manage master data and
-          operational reports.
+          log in, book services online, manage profiles, and recover accounts
+          with Gmail OTP; staff can process bookings and invoices; admins manage
+          accounts, services, promotions, invoices, statistics, and account
+          status.
         </ProjectFeature>
 
         <ProjectFeature
-          title="Backend, database, and OTP workflow"
+          title="Cloud deployment, database, and OTP security"
           images={[
             ezbookShot("09-account-management.png"),
             ezbookShot("10-service-management.png"),
@@ -277,10 +334,10 @@ const projects: Project[] = [
             ezbookShot("15-admin-profile.png"),
           ]}
         >
-          Built with Java 17, Jakarta Servlet, JSP/JSTL, SQL Server, Tomcat, and
-          Jakarta Mail. The application focuses on real booking workflows,
-          database-backed CRUD modules, authentication, OTP verification, and
-          role-based access control.
+          Built with Java 17, Jakarta Servlet 6.1, JSP/JSTL, Tomcat 10.1,
+          PostgreSQL, Supabase, Docker, Render, and Jakarta Mail. The v2 update
+          adds cloud deployment readiness, `/health` monitoring, Gmail OTP
+          flows, and single-session login behavior for safer account access.
         </ProjectFeature>
       </div>
     ),
