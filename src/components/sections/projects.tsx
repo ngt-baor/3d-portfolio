@@ -17,6 +17,7 @@ import { SectionHeader } from "./section-header";
 
 import SectionWrapper from "../ui/section-wrapper";
 import ScrollingPreview from "../scrolling-preview";
+import { FloatingDock } from "../ui/floating-dock";
 
 const ProjectsSection = () => {
   return (
@@ -38,7 +39,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <div className="flex items-center justify-center">
       <ResponsiveDialog>
-        <ResponsiveDialogTrigger className="flex w-full justify-center bg-transparent">
+        <ResponsiveDialogTrigger className="cursor-can-hover flex w-full justify-center rounded-lg bg-transparent">
           <div
             className="group relative h-auto w-full max-w-[400px] overflow-hidden rounded-lg ring-1 ring-white/5"
             style={{ aspectRatio: "3/2" }}
@@ -81,14 +82,14 @@ const ProjectCard = ({ project }: { project: Project }) => {
                   <Link
                     href={project.github}
                     target="_blank"
-                    className="text-sm font-semibold text-muted-foreground underline underline-offset-2 transition-colors hover:text-foreground"
+                    className="cursor-can-hover rounded-lg px-1 text-sm font-semibold text-muted-foreground underline underline-offset-2 transition-colors hover:text-foreground"
                   >
                     Source
                   </Link>
                 )}
                 {project.live && project.live !== "#" && (
                   <Link href={project.live} target="_blank">
-                    <button className="group flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/85">
+                    <button className="cursor-can-hover group flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/85">
                       Visit
                       <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </button>
@@ -143,22 +144,11 @@ const ProjectSkillGroup = ({
       <div className="text-xs font-semibold uppercase tracking-[0.28em] text-muted-foreground">
         {label}
       </div>
-      <div className="flex min-h-20 flex-wrap items-center gap-3 rounded-3xl bg-black/35 px-5 py-4 ring-1 ring-white/5">
-        {items.map((item) => (
-          <div
-            key={item.title}
-            className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-secondary/40 ring-1 ring-white/5 transition-transform hover:-translate-y-1"
-            title={item.title}
-          >
-            <div className="h-6 w-6">{item.icon}</div>
-            <span className="pointer-events-none absolute -bottom-8 left-1/2 z-10 hidden -translate-x-1/2 whitespace-nowrap rounded-md border border-border bg-popover px-2 py-1 text-xs text-popover-foreground shadow-sm group-hover:block">
-              {item.title}
-            </span>
-          </div>
-        ))}
-      </div>
+      <FloatingDock
+        items={items}
+        desktopClassName="mx-0 h-auto min-h-20 w-full flex-wrap justify-start gap-3 rounded-3xl bg-black/35 px-5 pb-4 pt-4 ring-1 ring-white/5"
+      />
     </div>
   );
 };
-
 export default ProjectsSection;

@@ -1,7 +1,3 @@
-/**
- * Disclaimer: This component is not entirely my own
- */
-
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -23,6 +19,7 @@ type MutablePoint = {
 };
 
 type HoverState = {
+  element: HTMLElement;
   rect: DOMRect;
 } | null;
 
@@ -174,11 +171,39 @@ function ElasticCursor() {
   useLayoutEffect(() => {
     if (isMobile || isBlogPost) return;
 
+    const releaseHoverTarget = (target: HTMLElement | null) => {
+      if (!target) return;
+
+      gsap.to(target, {
+        x: 0,
+        y: 0,
+        duration: 0.7,
+        ease: "elastic.out(1, 0.35)",
+        clearProps: "transform",
+        overwrite: "auto",
+      });
+    };
+
     const updateHoverTarget = (target: EventTarget | null) => {
       const hoverTarget = getHoverTarget(target);
-      hover.current = hoverTarget
-        ? { rect: hoverTarget.getBoundingClientRect() }
-        : null;
+      const previousTarget = hover.current?.element ?? null;
+
+      if (!hoverTarget) {
+        releaseHoverTarget(previousTarget);
+        hover.current = null;
+        return null;
+      }
+
+      if (previousTarget && previousTarget !== hoverTarget) {
+        releaseHoverTarget(previousTarget);
+      }
+
+      hover.current = {
+        element: hoverTarget,
+        rect: hoverTarget.getBoundingClientRect(),
+      };
+
+      return hoverTarget;
     };
 
     const onMove = (event: MouseEvent) => {
@@ -188,7 +213,23 @@ function ElasticCursor() {
 
       pointer.x = event.clientX;
       pointer.y = event.clientY;
-      updateHoverTarget(event.target);
+      const hoverTarget = updateHoverTarget(event.target);
+
+      if (hoverTarget) {
+        const rect = hoverTarget.getBoundingClientRect();
+        const x = (event.clientX - (rect.left + rect.width / 2)) * 0.22;
+        const y = (event.clientY - (rect.top + rect.height / 2)) * 0.22;
+
+        hover.current = { element: hoverTarget, rect };
+
+        gsap.to(hoverTarget, {
+          x,
+          y,
+          duration: 0.35,
+          ease: "power3.out",
+          overwrite: "auto",
+        });
+      }
 
       const target = event.target instanceof Element ? event.target : null;
       hidden.current = !!target?.closest('[data-no-custom-cursor="true"]');
@@ -213,6 +254,7 @@ function ElasticCursor() {
     };
 
     const onLeave = () => {
+      releaseHoverTarget(hover.current?.element ?? null);
       hover.current = null;
       hidden.current = true;
       render();
@@ -223,6 +265,7 @@ function ElasticCursor() {
     };
 
     const onScroll = () => {
+      releaseHoverTarget(hover.current?.element ?? null);
       hover.current = null;
     };
 
@@ -238,6 +281,8 @@ function ElasticCursor() {
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
       window.removeEventListener("scroll", onScroll);
+      releaseHoverTarget(hover.current?.element ?? null);
+      hover.current = null;
       document.body.style.cursor = "";
     };
   }, [cursorMoved, hidden, hover, isBlogPost, isMobile, pointer, pos, render, vel]);
