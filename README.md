@@ -35,6 +35,7 @@ I am an IT student aiming to gain practical backend development experience and i
 
 - GitHub: [ngt-baor](https://github.com/ngt-baor)
 - Facebook: [ngt.baor](https://facebook.com/ngt.baor)
+- X: [ngt_baor](https://x.com/ngt_baor)
 - Portfolio: [thebao.vercel.app](https://thebao.vercel.app/)
 - Instagram: [ngt_baor](https://www.instagram.com/ngt_baor)
 - LinkedIn: [ngt-baor](https://linkedin.com/in/ngt-baor)

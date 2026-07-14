@@ -36,7 +36,7 @@ const config = {
     return this.site + "/assets/seo/og-image.png";
   },
   social: {
-    twitter: "",
+    twitter: "https://x.com/ngt_baor",
     linkedin: "https://linkedin.com/in/ngt-baor",
     instagram: "https://www.instagram.com/ngt_baor",
     facebook: "https://facebook.com/ngt.baor",
