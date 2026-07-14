@@ -182,6 +182,18 @@ const PROJECT_SKILLS = {
     fg: "white",
     icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", "CSS"),
   },
+  vite: {
+    title: "Vite",
+    bg: "black",
+    fg: "white",
+    icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg", "Vite"),
+  },
+  github: {
+    title: "GitHub Releases",
+    bg: "black",
+    fg: "white",
+    icon: icon("https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", "GitHub Releases"),
+  },
   postgresql: {
     title: "PostgreSQL",
     bg: "black",
@@ -431,6 +443,78 @@ const projects: Project[] = [
           The app packages Messenger into a desktop experience with local
           profiles, session persistence, installer packaging, and native
           Windows app behavior.
+        </ProjectFeature>
+      </div>
+    ),
+  },
+  {
+    id: "grok-build",
+    category: "Desktop Agent Workspace",
+    title: "Grok Build",
+    src: `${BASE_PATH}/grok-build/1.png`,
+    screenshots: [
+      "1.png",
+      "2.png",
+      "3.png",
+      "4.png",
+      "5.png",
+      "6.png",
+      "7.png",
+      "8.png",
+      "9.png",
+    ],
+    github: "https://github.com/ngt-baor/Grok-buid-app",
+    live: "https://github.com/ngt-baor/Grok-buid-app/releases",
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.ts,
+        PROJECT_SKILLS.react,
+        PROJECT_SKILLS.vite,
+        PROJECT_SKILLS.css,
+      ],
+      backend: [
+        PROJECT_SKILLS.electron,
+        PROJECT_SKILLS.node,
+        PROJECT_SKILLS.github,
+      ],
+    },
+    content: (
+      <div className="space-y-12">
+        <ProjectLead>
+          A Windows desktop workspace for running Grok CLI in project-based
+          coding sessions.
+        </ProjectLead>
+        <ProjectBody>
+          Grok Build wraps the local Grok CLI with a focused Electron interface
+          for project chat, multi-tab sessions, local workspace context, file
+          preview, diff review, Git status, usage tracking, settings, skills,
+          and GitHub Releases updates. Authentication and CLI data stay on the
+          local machine.
+        </ProjectBody>
+        <ProjectsLinks
+          live="https://github.com/ngt-baor/Grok-buid-app/releases"
+          repo="https://github.com/ngt-baor/Grok-buid-app"
+        />
+
+        <ProjectFeature
+          title="Project-based Grok workflow"
+          images={[
+            `${BASE_PATH}/grok-build/1.png`,
+            `${BASE_PATH}/grok-build/2.png`,
+            `${BASE_PATH}/grok-build/3.png`,
+            `${BASE_PATH}/grok-build/4.png`,
+            `${BASE_PATH}/grok-build/5.png`,
+            `${BASE_PATH}/grok-build/6.png`,
+            `${BASE_PATH}/grok-build/7.png`,
+            `${BASE_PATH}/grok-build/8.png`,
+            `${BASE_PATH}/grok-build/9.png`,
+          ]}
+        >
+          Built with Electron, React, TypeScript, and Vite. The app supports a
+          project picker, recent workspaces, streaming chat responses, stop
+          control, model and reasoning settings, local file tree preview, Git
+          worktree signals, packaged skills, and Windows setup or portable
+          release assets.
         </ProjectFeature>
       </div>
     ),
