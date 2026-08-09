@@ -33,7 +33,7 @@ const config = {
   githubRepo: "",
 
   get ogImg() {
-    return this.site + "/assets/seo/og-image.png";
+    return this.site + "/assets/seo/portfolio-preview.png";
   },
   social: {
     twitter: "https://x.com/ngt_baor",
