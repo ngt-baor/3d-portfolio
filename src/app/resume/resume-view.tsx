@@ -5,13 +5,10 @@ import { motion } from "motion/react";
 import { ArrowLeft, Download } from "lucide-react";
 
 const RESUME_PATH = "/BaoCV.pdf";
-const RESUME_PAGES = [
-  "/assets/resume/bao-cv-page-1.png",
-  "/assets/resume/bao-cv-page-2.png",
-];
+const RESUME_PAGES = ["/assets/resume/bao-cv-page-1.png"];
 
-const PDF_PAGE_WIDTH = 594.95996;
-const PDF_PAGE_HEIGHT = 841.91998;
+const PDF_PAGE_WIDTH = 595;
+const PDF_PAGE_HEIGHT = 842;
 
 type ResumeLink = {
   page: number;
@@ -23,69 +20,45 @@ type ResumeLink = {
 const RESUME_LINKS: ResumeLink[] = [
   {
     page: 0,
+    label: "Phone 0349554353",
+    href: "tel:+84349554353",
+    rect: [80.8316, 756.249, 130.4661, 765.7406],
+  },
+  {
+    page: 0,
+    label: "baontph51745@gmail.com",
+    href: "mailto:baontph51745@gmail.com",
+    rect: [80.8316, 744.7234, 184.4041, 754.215],
+  },
+  {
+    page: 0,
     label: "github.com/ngt-baor",
     href: "https://github.com/ngt-baor",
-    rect: [29.9764, 475.45844, 115.40916, 487.44901],
+    rect: [80.8316, 721.6722, 159.8725, 731.1639],
   },
   {
     page: 0,
-    label: "thebao.vercel.app/",
+    label: "thebao.vercel.app",
     href: "https://thebao.vercel.app/",
-    rect: [29.9764, 434.9903, 104.168, 446.98087],
+    rect: [80.8316, 710.1467, 150.7904, 719.6383],
   },
   {
     page: 0,
-    label: "facebook.com/ngt.baor",
-    href: "https://facebook.com/ngt.baor",
-    rect: [29.9764, 394.52216, 125.9009, 406.5127],
+    label: "github.com/ngt-baor/EzBook",
+    href: "https://github.com/ngt-baor/EzBook",
+    rect: [223.983, 474.0081, 324.5597, 482.9235],
   },
   {
     page: 0,
-    label: "instagram.com/ngt_baor",
-    href: "https://www.instagram.com/ngt_baor",
-    rect: [29.9764, 354.05402, 131.14677, 366.04459],
-  },
-  {
-    page: 0,
-    label: "linkedin.com/in/ngt-baor",
-    href: "https://linkedin.com/in/ngt-baor",
-    rect: [29.9764, 314.33527, 131.89618, 326.32581],
+    label: "ezbook-dz8b.onrender.com",
+    href: "https://ezbook-dz8b.onrender.com",
+    rect: [358.7152, 474.0081, 455.3963, 482.9235],
   },
   {
     page: 0,
     label: "github.com/ngt-baor/Certain-Shop",
     href: "https://github.com/ngt-baor/Certain-Shop",
-    rect: [268.28882, 243.89075, 389.69327, 254.38245],
-  },
-  {
-    page: 1,
-    label: "github.com/ngt-baor/EzBook",
-    href: "https://github.com/ngt-baor/EzBook",
-    rect: [245, 764.5, 384.1292, 774.9],
-  },
-  {
-    page: 1,
-    label: "github.com/ngt-baor/Discord_Lyrics",
-    href: "https://github.com/ngt-baor/Discord_Lyrics",
-    rect: [245, 652.04, 410.2532, 662.44],
-  },
-  {
-    page: 1,
-    label: "github.com/ngt-baor/Messenger-reup",
-    href: "https://github.com/ngt-baor/Messenger-reup",
-    rect: [245, 528.08, 416.3348, 538.48],
-  },
-  {
-    page: 1,
-    label: "github.com/ngt-baor/3d-portfolio",
-    href: "https://github.com/ngt-baor/3d-portfolio",
-    rect: [245, 427.12, 397.1996, 437.52],
-  },
-  {
-    page: 1,
-    label: "github.com/ngt-baor/Grok-buid-app",
-    href: "https://github.com/ngt-baor/Grok-buid-app",
-    rect: [245, 303.16, 408.8672, 313.56],
+    rect: [224.7483, 337.43, 345.1618, 346.3453],
   },
 ];
 function getLinkPosition([x1, y1, x2, y2]: ResumeLink["rect"]) {
@@ -117,7 +90,7 @@ export default function ResumeView() {
 
           <a
             href={RESUME_PATH}
-            download="Nguyen-The-Bao-CV.pdf"
+            download="Nguyen-The-Bao-CV-EN.pdf"
             type="application/pdf"
             className="inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
